@@ -1,7 +1,9 @@
 from django.shortcuts import render,redirect
 from home.models import Organisation,Login
+from user.models import fund_complaints
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from django.utils import timezone
 # Create your views here.
 
 def admin_home(request):
@@ -46,3 +48,19 @@ def delete_organisation(request,id,login):
     login_instance=Login.objects.get(id=login)
     login_instance.delete()
     return redirect(approve_org)
+
+def viewallcomplaints(request):
+    data=fund_complaints.objects.all().select_related('complaint_against').select_related('complainted_by').select_related('complaint_raised')
+    if request.POST:
+        reply=request.POST['reply']
+        id=request.POST['id']
+        complaint_instance=fund_complaints.objects.get(id=id)
+        complaint_instance.reply=reply
+        complaint_instance.replied_date=timezone.now()
+        complaint_instance.save()
+    return render(request,"viewcomplaints.html",{"data":data})
+
+def fund_raised_company(request,id):
+    org=Organisation.objects.get(id=id)
+    
+    return render(request,"fund_raised_company.html",{"organisation":org})

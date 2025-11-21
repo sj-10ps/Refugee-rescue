@@ -1,0 +1,44 @@
+{% extends 'admin_header.html' %}
+{% block admin %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Organisation Details</h2>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h4 class="card-title">{{ organisation.name }}</h4>
+
+            <p><strong>Email:</strong> {{ organisation.email }}</p>
+            <p><strong>Phone:</strong> {{ organisation.phone }}</p>
+            <p><strong>District:</strong> {{ organisation.district }}</p>
+            <p><strong>Sub District:</strong> {{ organisation.sub_district }}</p>
+            <p><strong>Post:</strong> {{ organisation.post }}</p>
+            <p><strong>Postal Code:</strong> {{ organisation.postal_code }}</p>
+            <p><strong>Landmark:</strong> {{ organisation.landmark }}</p>
+            <p><strong>Licence:</strong> {{ organisation.licence }}</p>
+            <p><strong>Status:</strong> {{ organisation.status }}</p>
+            <p><strong>Approved Date:</strong> 
+                {% if organisation.approved_date %}
+                    {{ organisation.approved_date|date:"d M Y H:i" }}
+                {% else %}
+                    Not approved yet
+                {% endif %}
+            </p>
+
+            <div class="mb-3">
+                <strong>Licence Image:</strong><br>
+                {% if organisation.licence_image %}
+                    <img src="{{ organisation.licence_image.url }}" alt="Licence Image" class="img-fluid rounded" style="max-width:300px;">
+                {% else %}
+                    No licence image uploaded
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                
+                {% if organisation.latitude and organisation.longitude %}
+                <strong>Location:</strong><br>
+                    Latitude: {{ organisation.latitude }}, Longitude: {{ organisation.longitude }}
+                {% endif %}
+              
+
+{% endblock %}

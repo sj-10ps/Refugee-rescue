@@ -1,0 +1,70 @@
+{% extends 'admin_header.html' %}
+{% block admin %}
+
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Fund Complaints Details</h2>
+
+    {% if data %}
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                     
+                        <th>Complaint Against (Organisation)</th>
+                        <th>Fund Raised</th>
+                        <th>Complainted By</th>
+                        <th>Complaint</th>
+                        <th>Proof</th>
+                        <th>Date Raised</th>
+                        <th>Reply</th>
+                        <th>Reply Date</th>
+                        <th>Status</th>
+                        <th></th> <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for complaint in data %}
+                    <tr>
+                      
+                        <td>{{ complaint.complaint_against.name }}</td>
+                        <td><a href='{%url "fund_raised_company" complaint.complaint_against.id%}' alt="kk">View Organisation</a></td>
+                        <td>{{complaint.complaint_raised.person }}</td>
+                        <td>{{ complaint.complaint }}</td>
+                        <td>
+                            {% if complaint.proof %}
+                                <img src="{{ complaint.proof.url }}" alt="Proof" style="max-width:500px; max-height:500px;">
+                            {% else %}
+                                No Proof
+                            {% endif %}
+                        </td>
+                        <td>{{ complaint.date|date:"d M Y H:i" }}</td>
+                        <td>{{ complaint.reply|default:"No Reply Yet" }}</td>
+                        <td>
+                            {% if complaint.replied_date %}
+                                {{ complaint.replied_date|date:"d M Y H:i" }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                    
+                        <form action="" method="post">
+                            {%csrf_token%}
+                         <td><input type="text" name="reply" id=""></td>
+                         <input type="hidden" name="id" value="{{complaint.id}}">
+                         <td><input type="submit" value="Reply"></td>
+                        </form>
+                       
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-warning text-center">
+            No complaints found.
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}
