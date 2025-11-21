@@ -1,0 +1,86 @@
+{% extends 'community_header.html' %}
+
+{% block community %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-primary">Details of Fund</h2>
+
+    {% if messages %}
+    <div class="mb-4">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if contact %}
+    <div class="card p-4 mb-4">
+        <h4>Contact Info</h4>
+        <p>
+            📞 <a href="tel:{{ contact.phone }}">{{ contact.phone }}</a><br>
+            📧 <a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
+        </p>
+    </div>
+    {% else %}
+    <div class="card p-4 mb-5">
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Person Name</th>
+                    <th>Total Amount</th>
+                    <th>Amount Received</th>
+                    <th>Prescription</th>
+                    <th>Description</th>
+                    <th>Contact</th>
+                    <th>Add to Cart</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ data.person.first_name }} {{ data.person.last_name }}</td>
+                    <td>₹{{ data.amount }}</td>
+                    <td>₹{{ data.amount_got }}</td>
+                    <td><img src="{{ data.prescription.url }}" alt="Prescription" class="img-thumbnail" width="100"></td>
+                    <td>{{ data.fund_description }}</td>
+                    <td><a class="btn btn-sm btn-outline-primary" href="{% url 'charity_contact' id=data.raised_by.id %}">Contact</a></td>
+                    <td><a class="btn btn-sm btn-success" href="{% url 'charity_cart2' id=data.id %}">Add</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+
+    <h2 class="mb-4 text-success">My Donations</h2>
+    <div class="card p-4">
+        <table class="table table-striped table-hover">
+            <thead class="table-success">
+                <tr>
+                    <th>Amount Given</th>
+                    <th>Person Name</th>
+                    <th>Description</th>
+                    <th>Amount Needed</th>
+                    <th>Amount Got</th>
+                    <th>Video Proof</th>
+                    <th>Prescription</th>
+                    <th>Contact</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in my_cart %}
+                <tr>
+                    <td>₹{{ i.amount_given }}</td>
+                    <td>{{ i.charity.person.first_name }} {{ i.charity.person.last_name }}</td>
+                    <td>{{ i.charity.fund_description }}</td>
+                    <td>₹{{ i.charity.amount }}</td>
+                    <td>₹{{ i.charity.amount_got }}</td>
+                    <td><a class="btn btn-sm btn-link" href="{{ i.charity.proof.url }}" target="_blank">Watch Video</a></td>
+                    <td><a class="btn btn-sm btn-link" href="{{ i.charity.prescription.url }}" target="_blank">View Prescription</a></td>
+                    <td><a class="btn btn-sm btn-outline-info" href="tel:{{ i.charity.raised_by.phone }}">Call</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

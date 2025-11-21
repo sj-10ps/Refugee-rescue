@@ -1,0 +1,49 @@
+{% extends 'adoptionhome.html' %}
+{% block adopt %}
+{% load static %}
+
+<h1 class="mt-4 mb-3 text-center">Organisation Details</h1>
+
+<!-- Bootstrap CSS & JS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    {% for i in images %}
+      {% if i.images %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <img src="{{ i.images.url }}" class="d-block w-100" style="height: 400px; object-fit: cover;" alt="{{ data.name }}">
+      </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </a>
+</div>
+
+<div class="table-responsive mt-4">
+  <table class="table table-bordered">
+    <tr><th>Organisation Name</th><td>{{ data.name }}</td></tr>
+    <tr><th>District</th><td>{{ data.district }}</td></tr>
+    <tr><th>Sub-District</th><td>{{ data.sub_district }}</td></tr>
+    <tr><th>Post</th><td>{{ data.post }}</td></tr>
+    <tr><th>Postal Code</th><td>{{ data.postal_code }}</td></tr>
+    <tr><th>Landmark</th><td>{{ data.landmark }}</td></tr>
+    <tr><th colspan="2">Contact Us</th></tr>
+    <tr>
+      <td><a href="tel:{{ data.phone }}"><img src="{% static 'images/phone-icon.webp' %}" height="50px" width="50px"></a></td>
+      <td><a href="mailto:{{ data.email }}"><img src="{% static 'images/email.webp' %}" height="50px" width="50px"></a></td>
+    </tr>
+  </table>
+</div>
+
+{% endblock %}

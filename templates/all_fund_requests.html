@@ -1,0 +1,131 @@
+{% extends 'charity_header.html' %}
+{% block charity %}
+
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Charity Details</h2>
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover table-striped">
+      <thead class="table-dark">
+        <tr>
+          <th>Person Name</th>
+          <th>Description</th>
+          <th>Amount Needed</th>
+          <th>Amount Received</th>
+          <th>Video Proof</th>
+          <th>Prescription</th>
+          <th>Contact</th>
+          <th>Add to Cart</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in data %}
+        <tr>
+          <td>{{ i.person.first_name }} {{ i.person.last_name }}</td>
+          <td>{{ i.fund_description }}</td>
+          <td>₹{{ i.amount }}</td>
+          <td>₹{{ i.amount_got }}</td>
+          <td><a href="{{ i.proof.url }}" class="btn btn-sm btn-info" target="_blank">View Video</a></td>
+          <td><a href="{{ i.prescription.url }}" class="btn btn-sm btn-warning" target="_blank">View Prescription</a></td>
+          <td><a href="tel:{{ i.raised_by.phone }}" class="btn btn-sm btn-primary">Call</a></td>
+          <td><a href="{% url 'charity_cart' id=i.id %}" class="btn btn-sm btn-success">Add</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="mt-5 text-center">My Donations</h2>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover">
+      <thead class="table-secondary">
+        <tr>
+          <th>Amount Given</th>
+          <th>Person Name</th>
+          <th>Description</th>
+          <th>Amount Needed</th>
+          <th>Amount Got</th>
+          <th>Video Proof</th>
+          <th>Prescription</th>
+          <th>Contact</th>
+          <th>Complaint</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in cart_data %}
+        <tr>
+          <td>₹{{ i.amount_given }}</td>
+          <td>{{ i.charity.person.first_name }} {{ i.charity.person.last_name }}</td>
+          <td>{{ i.charity.fund_description }}</td>
+          <td>₹{{ i.charity.amount }}</td>
+          <td>₹{{ i.charity.amount_got }}</td>
+          <td><a href="{{ i.charity.proof.url }}" class="btn btn-sm btn-info" target="_blank">Video</a></td>
+          <td><a href="{{ i.charity.prescription.url }}" class="btn btn-sm btn-warning" target="_blank">Prescription</a></td>
+          <td><a href="tel:{{ i.charity.raised_by.phone }}" class="btn btn-sm btn-primary">Call</a></td>
+          <td><a href="{% url 'raise_complaint' org_id=i.charity.raised_by.id fund_id=i.charity.id %}" class="btn btn-sm btn-danger">Complain</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="mt-5 text-center">Closed Donations</h2>
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover table-striped">
+      <thead class="table-dark">
+        <tr>
+          <th>Amount Given</th>
+          <th>Person Name</th>
+          <th>Description</th>
+          <th>Amount Needed</th>
+          <th>Amount Got</th>
+          <th>Video Proof</th>
+          <th>Prescription</th>
+          <th>Contact</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in closed %}
+        <tr>
+          <td>₹{{ i.amount_given }}</td>
+          <td>{{ i.charity.person.first_name }} {{ i.charity.person.last_name }}</td>
+          <td>{{ i.charity.fund_description }}</td>
+          <td>₹{{ i.charity.amount }}</td>
+          <td>₹{{ i.charity.amount_got }}</td>
+          <td><a href="{{ i.charity.proof.url }}" class="btn btn-sm btn-info" target="_blank">Video</a></td>
+          <td><a href="{{ i.charity.prescription.url }}" class="btn btn-sm btn-warning" target="_blank">Prescription</a></td>
+          <td><a href="tel:{{ i.charity.raised_by.phone }}" class="btn btn-sm btn-primary">Call</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="mt-5 text-center">Registered Complaints</h2>
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover">
+      <thead class="table-danger">
+        <tr>
+          <th>Complaint Against</th>
+          <th>Complaint</th>
+          <th>Date</th>
+          <th>Reply</th>
+          <th>Replied Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in complaints %}
+        <tr>
+          <td>{{ i.complaint_against.name }}</td>
+          <td>{{ i.complaint }}</td>
+          <td>{{ i.date }}</td>
+          <td>{{ i.reply }}</td>
+          <td>{{ i.replied_date }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'org_header.html' %}
+{% block org %}
+<div class="container my-4">
+  <h2 class="mb-4 text-center">Fund Contributions</h2>
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover align-middle text-center">
+      <thead class="table-dark">
+        <tr>
+          <th>Person Name</th>
+          <th>Amount Needed</th>
+          <th>Amount Collected</th>
+          <th>Funder Name</th>
+          <th>Amount Received</th>
+          <th>Update</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in charity_instance %}
+        <tr>
+          <td>{{ i.charity.person.first_name }} {{ i.charity.person.last_name }}</td>
+          <td>₹{{ i.charity.amount }}</td>
+          <td>₹{{ i.charity.amount_got }}</td>
+          <td>{{ i.user.first_name }} {{ i.user.last_name }}</td>
+          <td>₹{{ i.amount_given }}</td>
+          <td>
+            <form action="" method="post" class="d-flex justify-content-center align-items-center gap-2">
+              {% csrf_token %}
+              <input type="hidden" name="cart_id" value="{{ i.id }}">
+              <input type="hidden" name="fund_id" value="{{ i.charity.id }}">
+              <input type="number" name="num" class="form-control w-50" placeholder="Amount" required>
+              <button type="submit" class="btn btn-primary btn-sm">Update</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="my-4 text-center">Closed Fund Requests</h2>
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered text-center align-middle">
+      <thead class="table-secondary">
+        <tr>
+          <th>Person Name</th>
+          <th>Amount Needed</th>
+          <th>Amount Collected</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in closed %}
+        <tr>
+          <td>{{ i.person.first_name }} {{ i.person.last_name }}</td>
+          <td>₹{{ i.amount }}</td>
+          <td>₹{{ i.amount_got }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

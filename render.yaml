@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: my-django-app
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn myproject.wsgi:application"
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: CLOUDINARY_URL
+        sync: false

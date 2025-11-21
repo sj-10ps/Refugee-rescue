@@ -1,0 +1,81 @@
+{% extends 'public_header.html' %}
+{% block content %}
+{% load static %}
+
+<style>
+  body {
+    background: #f4f6f8;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .login-container {
+    width: 400px;
+    margin: 60px auto;
+    padding: 30px;
+    background: white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+  }
+
+  .login-form h2 {
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+  }
+
+  .login-form p {
+    margin-bottom: 15px;
+  }
+
+  .login-form input[type="text"],
+  .login-form input[type="password"] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-top: 5px;
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 12px;
+    background: #007bff;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    font-weight: bold;
+    margin-top: 15px;
+    transition: background 0.3s ease;
+    cursor: pointer;
+  }
+
+  .submit-btn:hover {
+    background: #0056b3;
+  }
+
+  .signup-link {
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .signup-link:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<div class="login-container">
+  <form method="post" class="login-form">
+    {% csrf_token %}
+    <h2>Login</h2>
+    {{ frm.as_p }}
+    <input type="submit" value="LOGIN" class="submit-btn">
+    <a href="{% url 'user_register' %}" class="signup-link">Don't have an account? Signup</a>
+  </form>
+</div>
+
+{% endblock %}

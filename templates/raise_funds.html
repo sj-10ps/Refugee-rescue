@@ -1,0 +1,104 @@
+{% extends 'org_header.html' %}
+{% block org %}
+<div class="container py-5">
+    <h1 class="mb-4 text-center text-primary">Upload Fund Details</h1>
+
+    <form action="" method="post" enctype="multipart/form-data" class="border p-4 rounded shadow-sm bg-light">
+        {% csrf_token %}
+        
+        <div class="mb-3">
+            <label for="person" class="form-label">Select the Person</label>
+            <select name="person" id="person" class="form-select">
+                {% for i in select_data %}
+                    <option value="{{ i.id }}">{{ i.first_name }} {{ i.last_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            {{ frm.as_p }}
+        </div>
+
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+
+    {% if fund_data %}
+    <h2 class="mt-5 text-success">Person Details</h2>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped mt-3">
+            <thead class="table-dark">
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Image</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in fund_data %}
+                <tr>
+                    <td>{{ i.first_name }}</td>
+                    <td>{{ i.last_name }}</td>
+                    <td>{{ i.age }}</td>
+                    <td>{{ i.gender }}</td>
+                    <td>
+                        <img src="{{ i.image.url }}" alt="Image" class="img-fluid rounded" style="max-width: 150px; height: 150px; object-fit: cover;">
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+
+    <h2 class="mt-5 text-warning">Raised Fund Requests</h2>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Person Details</th>
+                    <th>Amount</th>
+                    <th>Amount Collected</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in uploaded %}
+                <tr>
+                    <td><a href="{% url 'fund_person' id=i.person.id %}" class="btn btn-link">View Details</a></td>
+                    <td>₹ {{ i.amount }}</td>
+                    <td>₹ {{ i.amount_got }}</td>
+                    <td>{{ i.fund_description }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+
+    <h2 class="mt-5 text-secondary">Closed Fund Requests</h2>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Person Details</th>
+                    <th>Amount</th>
+                    <th>Amount Collected</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in closed %}
+                <tr>
+                    <td><a href="{% url 'fund_person' id=i.person.id %}" class="btn btn-link">View Details</a></td>
+                    <td>₹ {{ i.amount }}</td>
+                    <td>₹ {{ i.amount_got }}</td>
+                    <td>{{ i.fund_description }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

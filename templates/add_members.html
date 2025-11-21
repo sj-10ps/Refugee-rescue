@@ -1,0 +1,32 @@
+{% extends 'org_header.html' %}
+{% block org %}
+<div class="container mt-5">
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-header bg-dark text-white rounded-top-4">
+            <h3 class="mb-0 text-center">Upload Refugee Details</h3>
+        </div>
+        <div class="card-body">
+            <form action="" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                {% csrf_token %}
+                
+                <!-- Render form fields nicely -->
+                <div class="row">
+                    {% for field in frm %}
+                        <div class="mb-3 col-md-6">
+                            <label for="{{ field.id_for_label }}" class="form-label fw-semibold">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.errors %}
+                                <div class="text-danger small">{{ field.errors }}</div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+                
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary px-4 py-2">Upload</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

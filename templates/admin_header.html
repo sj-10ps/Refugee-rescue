@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Home</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body class="bg-light">
+
+  <div class="container mt-5">
+    <div class="card shadow border-0 rounded-4">
+      <div class="card-header bg-dark text-white rounded-top-4">
+        <h2 class="mb-0 text-center">Admin Dashboard</h2>
+      </div>
+      <div class="card-body text-center">
+        <p class="lead">Welcome, Admin! Use the options below to manage the platform.</p>
+        
+        <div class="d-grid gap-3 col-6 mx-auto mt-4">
+          <a href="{% url 'approve_org' %}" class="btn btn-outline-primary btn-lg">Approve or Reject Organisations</a>
+          <a href="{% url 'logout' %}" class="btn btn-outline-danger btn-lg">Logout</a>
+        </div>
+
+        <!-- Optional block for other content -->
+        <div class="mt-5">
+          {% block admin %}
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  {% include 'footer.html' %}
+
+  <!-- Bootstrap JS (Optional) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+

@@ -1,0 +1,30 @@
+{% extends 'org_header.html' %}
+{% block org %}
+
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Infrastructure Images</h2>
+
+  <!-- Upload Form -->
+  <form method="POST" enctype="multipart/form-data" class="mb-4">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Upload Image</button>
+  </form>
+
+  <!-- Display Uploaded Images -->
+  <div class="row">
+    {% for image in images %}
+    <div class="col-md-4 mb-3">
+      <div class="card">
+        <img src="{{ image.images.url }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+        <div class="card-body">
+          <p class="card-text">{{ image.type }}</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+</div>
+
+{% endblock %}

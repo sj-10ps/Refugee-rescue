@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Charity Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container py-5 text-center">
+    <h1 class="mb-4 text-primary">Welcome to Charity Home</h1>
+
+    <div class="d-grid gap-3 col-6 mx-auto">
+        <a href="{% url 'all_organisations' %}" class="btn btn-outline-primary btn-lg">All Organisations</a>
+        <a href="{% url 'all_fund_requests' %}" class="btn btn-outline-success btn-lg">Provide Charity</a>
+        <a href="{% url 'user_home' %}" class="btn btn-outline-secondary btn-lg">Back to Home</a>
+    </div>
+
+    {% block charity %}
+    {% endblock %}
+</div>
+
+{% include 'footer.html' %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

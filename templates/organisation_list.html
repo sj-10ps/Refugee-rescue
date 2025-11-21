@@ -1,0 +1,59 @@
+{% extends 'adoptionhome.html' %}
+{% block adopt %}
+<div class="container my-4">
+    <h2 class="text-center mb-4">Available Refugee Organisations</h2>
+    <div id="map"></div>
+</div>
+
+<style>
+    #map {
+        width: 100%;
+        height: 500px;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+    }
+</style>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOVYRIgupAurZup5y1PRh8Ismb1A3lLao&libraries=places&callback=initMap" async defer></script>
+
+<script>
+    function initMap() {
+        const map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: 10.8505, lng: 76.2711 }, // Centered on Kerala
+            zoom: 8
+        });
+
+        function addMarkers(organisations) {
+            organisations.forEach(org => {
+                if (org.latitude && org.longitude) {
+                    const marker = new google.maps.Marker({
+                        position: { lat: org.latitude, lng: org.longitude },
+                        map,
+                        title: org.name
+                    });
+
+                    const infoWindow = new google.maps.InfoWindow({
+                        content: `
+                            <div>
+                                <strong>${org.name}</strong><br>
+                                ${org.district}, ${org.sub_district}<br>
+                                ${org.post} - ${org.postal_code}<br>
+                                <a href="/selected_organisation_data/${org.id}/" target="_blank">See More</a>
+                            </div>
+                        `
+                    });
+
+                    marker.addListener('click', () => {
+                        infoWindow.open(map, marker);
+                    });
+                }
+            });
+        }
+
+        fetch('/organisation-data/')
+            .then(res => res.json())
+            .then(data => addMarkers(data))
+            .catch(err => console.error("Error fetching organisation data:", err));
+    }
+</script>
+{% endblock %}

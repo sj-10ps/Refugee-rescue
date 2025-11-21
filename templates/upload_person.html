@@ -1,0 +1,28 @@
+{%extends 'adoptionhome.html'%}
+
+{%block adopt%}
+<h2>Upload Details of the Person Found</h2>
+<form method="POST" enctype="multipart/form-data">  
+    {% csrf_token %}
+    {{ frm.as_p }}
+
+    {% if form_errors %}
+        <div style="color: red; border: 1px solid red; padding: 10px; margin-top: 10px;">
+            <h4>Form Errors:</h4>
+            <ul>
+                {% for field, errors in form_errors.items %}
+                    <li><strong>{{ field }}:</strong>
+                        <ul>
+                            {% for error in errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    
+    <button type="submit" style="margin-top: 10px;">Submit</button>
+</form>
+{%endblock%}

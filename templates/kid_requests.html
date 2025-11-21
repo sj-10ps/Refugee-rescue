@@ -1,0 +1,85 @@
+{% extends 'ar_header.html' %}
+{% block requests %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Kid Adoption Requests</h2>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle text-center">
+            <thead class="table-dark">
+                <tr>
+                    <th>Refugee Name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Image</th>
+                    <th>Requested Person</th>
+                    <th>Date</th>
+                    <th>Place</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Contact</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in data %}
+                <tr>
+                    <td>{{ i.person.first_name }} {{ i.person.last_name }}</td>
+                    <td>{{ i.person.age }}</td>
+                    <td>{{ i.person.gender }}</td>
+                    <td>
+                        <img src="{{ i.person.image.url }}" alt="Refugee Image" height="70" class="rounded shadow-sm">
+                    </td>
+                    <td>{{ i.request_from.first_name }} {{ i.request_from.last_name }}</td>
+                    <td>{{ i.date }}</td>
+                    <td>{{ i.request_from.district }}, {{ i.request_from.sub_district }}, {{ i.request_from.post }}</td>
+                    <td>{{ i.request_from.age }}</td>
+                    <td>{{ i.request_from.gender }}</td>
+                    <td><a href="tel:{{ i.request_from.phone }}" class="btn btn-sm btn-outline-primary">Call</a></td>
+                    <td>
+                        <a href="{% url 'kid_requests_approve' id=i.id per_id=i.person.id %}" class="btn btn-success btn-sm">Approve</a>
+                        <a href="{% url 'kid_requests_reject' id=i.id %}" class="btn btn-danger btn-sm">Reject</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <h2 class="text-center my-4">Approved Requests</h2>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle text-center">
+            <thead class="table-success">
+                <tr>
+                    <th>Refugee Name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Image</th>
+                    <th>Requested Person</th>
+                    <th>Place</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Adopted Date</th>
+                    <th>Contact</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in approved %}
+                <tr>
+                    <td>{{ i.person.first_name }} {{ i.person.last_name }}</td>
+                    <td>{{ i.person.age }}</td>
+                    <td>{{ i.person.gender }}</td>
+                    <td>
+                        <img src="{{ i.person.image.url }}" alt="Refugee Image" height="70" class="rounded shadow-sm">
+                    </td>
+                    <td>{{ i.request_from.first_name }} {{ i.request_from.last_name }}</td>
+                    <td>{{ i.request_from.district }}, {{ i.request_from.sub_district }}, {{ i.request_from.post }}</td>
+                    <td>{{ i.request_from.age }}</td>
+                    <td>{{ i.request_from.gender }}</td>
+                    <td>{{ i.adopted_date }}</td>
+                    <td><a href="tel:{{ i.request_from.phone }}" class="btn btn-sm btn-outline-primary">Call</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

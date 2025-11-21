@@ -1,0 +1,74 @@
+{% extends 'public_header.html' %}
+{% block content %}
+{% load static %}
+
+<style>
+  body {
+    background: linear-gradient(120deg, #2980b9, #8e44ad);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .auth-box {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  }
+
+  .auth-box h2 {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #333;
+  }
+
+  .auth-box .form-control {
+    border-radius: 20px;
+  }
+
+  .auth-box .btn {
+    border-radius: 20px;
+  }
+
+  .auth-box .toggle-link {
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  .auth-box .toggle-link a {
+    color: #2980b9;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .auth-box .toggle-link a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<div class="auth-box">
+  <h2>Login</h2>
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <input type="email" class="form-control" placeholder="Email" name="email" required>
+    </div>
+    <div class="form-group">
+      <input type="password" class="form-control" placeholder="Password" name="password" required>
+    </div>
+    <div class="form-group text-right">
+      <a href="#" class="text-muted small">Forgot password?</a>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">Login</button>
+  </form>
+
+  <div class="toggle-link">
+    Don't have an account? <a href="#">Signup</a>
+  </div>
+</div>
+
+{% endblock %}

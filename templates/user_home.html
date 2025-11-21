@@ -1,0 +1,16 @@
+{% extends 'user_header.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Welcome to User Dashboard</h2>
+    <div class="list-group">
+        <a href="{% url 'adoption_home' %}" class="list-group-item list-group-item-action">Rescue People</a>
+        <a href="{% url 'charity_home' %}" class="list-group-item list-group-item-action">Charity To Organisation</a>
+        <a href="{% url 'community_home' %}" class="list-group-item list-group-item-action">Community</a>
+        <a href="{% url 'kid_elders_adoption_home' %}" class="list-group-item list-group-item-action">Adopt Kids And Elders</a>
+        <a href="{% url 'logout' %}" class="list-group-item list-group-item-action text-danger">Logout</a>
+    </div>
+</div>
+{% endblock %}
+
+      {% include 'footer.html' %}

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organisation Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Organisation Home</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#orgNavbar" aria-controls="orgNavbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="orgNavbar">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+
+        <!-- Card Items -->
+        <div class="col">
+            <div class="card h-100 text-center shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Adopt Refugees</h5>
+                    <p class="card-text">Find and connect with people willing to adopt refugees.</p>
+                    <a href="{% url 'adopt_people' %}" class="btn btn-primary">Adopt</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100 text-center shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Register Refugees</h5>
+                    <p class="card-text">Add new refugee profiles to the system.</p>
+                    <a href="{% url 'add_members' %}" class="btn btn-primary">Register</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100 text-center shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Edit Home Appearance</h5>
+                    <p class="card-text">Customize the appearance of the homepage.</p>
+                    <a href="{% url 'edit_home' %}" class="btn btn-primary">Edit Appearance</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100 text-center shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Raise Funds</h5>
+                    <p class="card-text">Initiate campaigns and seek support.</p>
+                    <a href="{% url 'org_raise_funds' %}" class="btn btn-success">Raise Funds</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100 text-center shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Update Received Funds</h5>
+                    <p class="card-text">Track and update the funds received.</p>
+                    <a href="{% url 'recieved_funds' %}" class="btn btn-warning">Update Funds</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100 text-center shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Adoption Requests</h5>
+                    <p class="card-text">View and manage adoption requests.</p>
+                    <a href="{% url 'adoption_requests_home' %}" class="btn btn-info">View Requests</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% block org %}
+{% endblock %}
+<!-- Footer -->
+{% include 'footer.html' %}
+
+

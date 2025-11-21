@@ -1,0 +1,104 @@
+{% extends 'adoptionhome.html' %}
+{% block adopt %}
+
+<style>
+    .adoption-container {
+        padding: 2rem;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #333;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+        padding: 12px 16px;
+        text-align: center;
+        border: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #007bff;
+        color: #fff;
+        text-transform: capitalize;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    img {
+        border-radius: 8px;
+        object-fit: cover;
+    }
+
+    .status-success {
+        color: green;
+        font-weight: bold;
+    }
+
+    .status-pending {
+        color: orange;
+    }
+
+    .org-link {
+        display: inline-block;
+        margin-top: 5px;
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .org-link:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="adoption-container">
+    <h1>View Adoption Progress</h1>
+    <table>
+        <thead>
+            <tr>
+                {% for i in fields %}
+                    <th>{{ i }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in data %}
+            <tr>
+                <td>{{ i.first_name }}</td>
+                <td>{{ i.last_name }}</td>
+                <td>{{ i.age }}</td>
+                <td>{{ i.gender }}</td>
+                <td><img src="{{ i.image.url }}" alt="child" width="60" height="60"></td>
+                {% if i.status == 'adopted' %}
+                    <td class="status-success">
+                        Adoption Successful
+                        <br>
+                        <a class="org-link" href="{% url 'selected_organisation_data' id=i.adopted_by.id %}">
+                            Organisation Details
+                        </a>
+                    </td>
+                {% else %}
+                    <td class="status-pending">{{ i.status }}</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

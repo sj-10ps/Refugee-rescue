@@ -1,0 +1,126 @@
+{% extends 'charity_header.html' %}
+{% load static %}
+{% block charity %}
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+  }
+
+  h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+  }
+
+  form {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  select {
+    padding: 8px 12px;
+    margin: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+
+  input[type="submit"],
+  button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #3498db;
+    color: white;
+    cursor: pointer;
+    margin: 10px 5px;
+  }
+
+  input[type="submit"]:hover,
+  button:hover {
+    background-color: #2980b9;
+  }
+
+  table {
+    width: 95%;
+    margin: auto;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+  }
+
+  th, td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+  }
+
+  th {
+    background-color: #2980b9;
+    color: white;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  a img {
+    transition: transform 0.3s ease;
+  }
+
+  a img:hover {
+    transform: scale(1.1);
+  }
+</style>
+
+<h1>All Organisations</h1>
+
+<form action="" method="post">
+  {% csrf_token %}
+  <select name="district">
+    {% for i in district %}
+      <option value="{{ i.district }}">{{ i.district }}</option>
+    {% endfor %}
+  </select>
+  
+  <select name="sub_district">
+    {% for i in sub_district %}
+      <option value="{{ i.sub_district }}">{{ i.sub_district }}</option>
+    {% endfor %}
+  </select>
+
+  <br>
+  <input type="submit" value="Search">
+  <a href="{% url 'all_organisations' %}"><button type="button">All</button></a>
+</form>
+
+<table>
+  <thead>
+    <tr>
+      <th>Organisation Name</th>
+      <th>District</th>
+      <th>Sub-District</th>
+      <th>Post</th>
+      <th>Postal Code</th>
+      <th>Landmark</th>
+      <th>Members</th>
+      <th colspan="2">Contact</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for data in org %}
+    <tr>
+      <td>{{ data.name }}</td>
+      <td>{{ data.district }}</td>
+      <td>{{ data.sub_district }}</td>
+      <td>{{ data.post }}</td>
+      <td>{{ data.postal_code }}</td>
+      <td>{{ data.landmark }}</td>
+      <td><a href="{% url 'all_members' id=data.id %}">View Members</a></td>
+      <td><a href="tel:{{ data.phone }}"><img src="{% static 'images/phone-icon.webp' %}" height="30px" width="30px"></a></td>
+      <td><a href="mailto:{{ data.email }}"><img src="{% static 'images/email.webp' %}" height="30px" width="30px"></a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

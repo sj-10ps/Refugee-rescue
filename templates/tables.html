@@ -1,0 +1,71 @@
+{% extends 'adoptionhome.html' %}
+{% block adopt %}
+{% load static %}
+
+<h1 class="text-center my-4">Organisation Details</h1>
+
+<!-- Carousel Section -->
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    {% for i in images %}
+      {% if i.images %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+          <img src="{{ i.images.url }}" class="d-block w-100" style="height: 400px; object-fit: cover;" alt="{{ data.name }}">
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+<!-- Details Table -->
+<table class="table table-bordered table-hover mt-4">
+  <tr>
+    <th>Organisation name</th>
+    <td>{{ data.name }}</td>
+  </tr>
+  <tr>
+    <th>District</th>
+    <td>{{ data.district }}</td>
+  </tr>
+  <tr>
+    <th>Sub-District</th>
+    <td>{{ data.sub_district }}</td>
+  </tr>
+  <tr>
+    <th>Post</th>
+    <td>{{ data.post }}</td>
+  </tr>
+  <tr>
+    <th>Postal Code</th>
+    <td>{{ data.postal_code }}</td>
+  </tr>
+  <tr>
+    <th>Landmark</th>
+    <td>{{ data.landmark }}</td>
+  </tr>
+  <tr>
+    <th colspan="2" class="text-center">Contact Us</th>
+  </tr>
+  <tr>
+    <td>
+      <a href="tel:{{ data.phone }}">
+        <img src="{% static 'images/phone-icon.webp' %}" height="50" width="50" alt="Call us">
+      </a>
+    </td>
+    <td>
+      <a href="mailto:{{ data.email }}">
+        <img src="{% static 'images/email.webp' %}" height="50" width="50" alt="Email us">
+      </a>
+    </td>
+  </tr>
+</table>
+
+{% endblock %}

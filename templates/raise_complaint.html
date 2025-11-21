@@ -1,0 +1,30 @@
+{% extends 'charity_header.html' %}
+{% block charity %}
+{% load static %}
+
+<div style="max-width: 600px; margin: auto; padding: 30px;">
+    <h2 style="text-align: center;">Send Complaint About Fund</h2>
+    
+    <form action="" method="post" enctype="multipart/form-data" style="margin-top: 20px;">
+        {% csrf_token %}
+
+        <div style="margin-bottom: 15px;">
+            <label for="complaint">Complaint</label><br>
+            <input type="text" name="complaint" id="complaint" required 
+                   style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label for="proof">Bill Proof (Upload File)</label><br>
+            <input type="file" name="proof" id="proof" required 
+                   style="width: 100%; padding: 10px;">
+        </div>
+
+        <div style="text-align: center;">
+            <input type="submit" value="Submit Complaint" 
+                   style="padding: 10px 25px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer;">
+        </div>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends 'ke_header.html' %}
+{% block ke %}
+
+<div class="container mt-5">
+
+  {% if adopt_data %}
+    <h2 class="mb-4 text-primary">Organisation Details</h2>
+    <table class="table table-bordered">
+      <tr>
+        <th>Organisation Name</th>
+        <td>{{ adopt_data.name }}</td>
+      </tr>
+      <tr>
+        <th>District</th>
+        <td>{{ adopt_data.district }}</td>
+      </tr>
+      <tr>
+        <th>Sub District</th>
+        <td>{{ adopt_data.sub_district }}</td>
+      </tr>
+      <tr>
+        <th>Post Office</th>
+        <td>{{ adopt_data.post }}</td>
+      </tr>
+      <tr>
+        <th>Landmark</th>
+        <td>{{ adopt_data.landmark }}</td>
+      </tr>
+    </table>
+  {% else %}
+  
+    <h2 class="mb-4 text-success">Available for Adoption</h2>
+    <div class="row">
+      {% for i in data %}
+        <div class="col-md-4 mb-4">
+          <div class="card shadow-sm">
+            <img src="{{ i.image.url }}" class="card-img-top" style="height: 250px; object-fit: cover;" alt="Profile">
+            <div class="card-body">
+              <h5 class="card-title">{{ i.first_name }} {{ i.last_name }}</h5>
+              <p class="card-text">
+                <strong>Age:</strong> {{ i.age }}<br>
+                <strong>Gender:</strong> {{ i.gender }}
+              </p>
+              <a href="{% url 'key_adopt_confirm' id=i.id %}" class="btn btn-primary w-100 mb-2">Adopt</a>
+              <a href="tel:{{ i.adopted_by.phone }}" class="btn btn-outline-success w-100 mb-2">Call Us</a>
+              <a href="{% url 'adopt_org_details' org_id=i.adopted_by.id %}" class="btn btn-outline-info w-100">Organisation Details</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+
+  <h2 class="mt-5 mb-4 text-warning">My Adoption Requests</h2>
+  <div class="row">
+    {% for i in requests %}
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm">
+          <img src="{{ i.person.image.url }}" class="card-img-top" style="height: 250px; object-fit: cover;" alt="Profile">
+          <div class="card-body">
+            <h5 class="card-title">{{ i.person.first_name }} {{ i.person.last_name }}</h5>
+            <p class="card-text">
+              <strong>Age:</strong> {{ i.person.age }}<br>
+              <strong>Gender:</strong> {{ i.person.gender }}<br>
+              <strong>Request Date:</strong> {{ i.date }}<br>
+              <strong>Status:</strong> {{ i.status }}<br>
+              <strong>Approved Date:</strong> {{ i.adopted_date }}
+            </p>
+            <a href="tel:{{ i.adopted_by.phone }}" class="btn btn-outline-success w-100 mb-2">Call Us</a>
+            <a href="{% url 'adopt_org_details' org_id=i.person.adopted_by.id %}" class="btn btn-outline-info w-100">Organisation Details</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+</div>
+
+{% endblock %}

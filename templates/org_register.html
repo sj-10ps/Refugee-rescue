@@ -1,0 +1,57 @@
+{% extends 'public_header.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Register Organisation</h2>
+    
+    <form action="" method="post" enctype="multipart/form-data" class="p-4 shadow rounded bg-light">
+        {% csrf_token %}
+        
+        <div class="mb-3">
+            {{ frm2.as_p }}
+        </div>
+
+        <div class="mb-3">
+            {{ frm1.as_p }}
+        </div>
+
+        <div class="mb-3">
+            <label for="latitude" class="form-label">Latitude</label>
+            <input type="text" id="latitude" name="latitude" class="form-control" placeholder="Automatically detected" readonly>
+        </div>
+
+        <div class="mb-3">
+            <label for="longitude" class="form-label">Longitude</label>
+            <input type="text" id="longitude" name="longitude" class="form-control" placeholder="Automatically detected" readonly>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Submit</button>
+    </form>
+</div>
+
+<script>
+    window.onload = function() {
+        if ("geolocation" in navigator) {
+            var options = {
+                enableHighAccuracy: true,
+                timeout: 5000,
+                maximumAge: 0
+            };
+
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    document.getElementById('latitude').value = position.coords.latitude;
+                    document.getElementById('longitude').value = position.coords.longitude;
+                },
+                function(error) {
+                    alert("Unable to retrieve location. Please make sure you have location services enabled.");
+                    console.error("Geolocation error:", error);
+                },
+                options
+            );
+        } else {
+            alert("Geolocation is not supported by your browser.");
+        }
+    }
+</script>
+
+{% endblock %}

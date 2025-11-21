@@ -1,0 +1,12 @@
+{% extends 'public_header.html' %}
+{% block content %}
+<h1 class="form-title">Register User</h1>
+<div class="form-container">
+    <form action="" method="post" class="register-form">
+        {% csrf_token %}
+        {{ frm1.as_p }}
+        {{ frm2.as_p }}
+        <input type="submit" value="Submit" class="submit-btn">
+    </form>
+</div>
+{% endblock %}
