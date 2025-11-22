@@ -3,12 +3,12 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-    path('organisation_home',organisation_home,name="organisation_home"),
-    path('org_home',org_home,name='org_home'),
-    path('adopt_people',adopt_people,name='adopt_people'),
+    path('organisation_home/',organisation_home,name="organisation_home"),
+    path('org_home/',org_home,name='org_home'),
+    path('adopt_people/',adopt_people,name='adopt_people'),
     path('adoption/<int:id>',adoption,name='adoption'),
-    path('edit_home',edit_home,name='edit_home'),
-    path('edit_carousal',edit_carousal,name='edit_carousal'),
+    path('edit_home/',edit_home,name='edit_home'),
+    path('edit_carousal/',edit_carousal,name='edit_carousal'),
     path('delete_carousal/<int:id>',delete_carousal,name='delete_carousal'),
     path('org_raise_funds',org_raise_funds,name='org_raise_funds'),
     path('fund_person<int:id>',fund_person,name='fund_person'),
